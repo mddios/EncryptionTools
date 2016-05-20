@@ -1,0 +1,2 @@
+# EncryptionTools
+加密工具： Base64 MD5 SHA1 SHA224 SHA256 SHA384 HMAC AES DES RSA
