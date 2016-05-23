@@ -15,8 +15,8 @@
 		60638A7E1CEB154D0039DE1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60638A7C1CEB154D0039DE1A /* LaunchScreen.storyboard */; };
 		60638A911CEDBB5C0039DE1A /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 60638A8E1CEDBB5C0039DE1A /* Base64.m */; };
 		60638A921CEDBB5C0039DE1A /* CocoaSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = 60638A901CEDBB5C0039DE1A /* CocoaSecurity.m */; };
-		60638A941CEEAB2D0039DE1A /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 60638A931CEEAB2D0039DE1A /* README.md */; };
 		60638A981CEEF71D0039DE1A /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 60638A971CEEF71D0039DE1A /* NSString+Hash.m */; };
+		6069CA651CF2D50A00FDC811 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6069CA641CF2D50A00FDC811 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,9 +34,9 @@
 		60638A8E1CEDBB5C0039DE1A /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		60638A8F1CEDBB5C0039DE1A /* CocoaSecurity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaSecurity.h; sourceTree = "<group>"; };
 		60638A901CEDBB5C0039DE1A /* CocoaSecurity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CocoaSecurity.m; sourceTree = "<group>"; };
-		60638A931CEEAB2D0039DE1A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		60638A961CEEF71D0039DE1A /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		60638A971CEEF71D0039DE1A /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
+		6069CA641CF2D50A00FDC811 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 		60638A6D1CEB154C0039DE1A /* EncryptionTools */ = {
 			isa = PBXGroup;
 			children = (
-				60638A931CEEAB2D0039DE1A /* README.md */,
+				6069CA641CF2D50A00FDC811 /* README.md */,
 				60638A711CEB154C0039DE1A /* AppDelegate.h */,
 				60638A721CEB154C0039DE1A /* AppDelegate.m */,
 				60638A741CEB154C0039DE1A /* ViewController.h */,
@@ -186,7 +186,7 @@
 				60638A981CEEF71D0039DE1A /* NSString+Hash.m in Sources */,
 				60638A761CEB154D0039DE1A /* ViewController.m in Sources */,
 				60638A911CEDBB5C0039DE1A /* Base64.m in Sources */,
-				60638A941CEEAB2D0039DE1A /* README.md in Sources */,
+				6069CA651CF2D50A00FDC811 /* README.md in Sources */,
 				60638A921CEDBB5C0039DE1A /* CocoaSecurity.m in Sources */,
 				60638A731CEB154C0039DE1A /* AppDelegate.m in Sources */,
 				60638A701CEB154C0039DE1A /* main.m in Sources */,
