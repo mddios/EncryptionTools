@@ -33,7 +33,7 @@
 /// 返回结果：32长度  终端命令：echo -n "123" | openssl dgst -md5 -hmac "123"
 - (NSString *)hmacMD5WithKey:(NSString *)key;
 
-/// 返回结果：40长度   echo -n "string" | openssl sha -sha1 -hmac "key"
+/// 返回结果：40长度   echo -n "123" | openssl sha -sha1 -hmac "123"
 - (NSString *)hmacSHA1WithKey:(NSString *)key;
 - (NSString *)hmacSHA224WithKey:(NSString *)key;
 - (NSString *)hmacSHA256WithKey:(NSString *)key;
