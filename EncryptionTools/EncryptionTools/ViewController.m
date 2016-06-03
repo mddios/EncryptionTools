@@ -10,8 +10,10 @@
 #import "NSString+Hash.h"
 #import "CocoaSecurity.h"
 
-@interface ViewController ()
+#import "NSString+Encryption.h"
 
+@interface ViewController ()
+@property (nonatomic, strong) NSData *data;
 @end
 
 @implementation ViewController
@@ -19,7 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self base64Test];
-    [self hashTest];
+//    [self hashTest];
+    [self aesTest];
 }
 
 - (void)base64Test {
@@ -59,6 +62,25 @@
     /// hmac
     CocoaSecurityResult *hmacmd5 = [CocoaSecurity hmacMd5:plainStr hmacKey:plainStr];
     NSLog(@"hmacmd5:%lu---%@---%@",[plainStr hmacMD5WithKey:plainStr].length,[plainStr hmacMD5WithKey:plainStr],hmacmd5.hex);
+}
+
+- (void)aesTest {
+    NSString *plainText = @"123";
+    
+    NSString *key128 = @"0123456789ABCDEF";
+    // 16进制字符串
+    NSString *key128Hex = @"30313233343536373839414243444546";
+    
+    NSString *iv = @"0123456789ABCDEF";
+    // 16进制字符串
+    NSString *ivHex = @"30313233343536373839414243444546";
+    
+    CocoaSecurityResult *result = [CocoaSecurity aesEncrypt:plainText hexKey:key128Hex hexIv:ivHex];
+    
+    NSString *aesBase64 = [plainText aesEncryptWithHexKey:key128Hex hexIv:ivHex];
+    NSData *aesData = [plainText aesEncryptWithDataKey:[key128 dataUsingEncoding:NSUTF8StringEncoding] dataIv:[iv dataUsingEncoding:NSUTF8StringEncoding]];
+    NSLog(@"SecurityResult：\r\n%@ --- %@",result.base64,result.hexLower);
+    NSLog(@"NSString+Encryption：\r\n%@ --- %@",aesBase64,aesData);
 }
 
 @end
