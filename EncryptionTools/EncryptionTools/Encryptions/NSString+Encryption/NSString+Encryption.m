@@ -28,10 +28,24 @@
 }
 
 /*
+ 默认CBC模式，返回base64编码
+ */
+- (NSString *)aesEncryptWithKey:(NSString *)key iv:(NSString *)iv {
+    NSData *aesKey = [key dataUsingEncoding:NSUTF8StringEncoding];
+    if (iv == nil) {
+        // 32长度
+        iv = @"00000000000000000000000000000000";
+    }
+    NSData *aesIv = [iv dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *resultData = [self aesEncryptWithDataKey:aesKey dataIv:aesIv];
+    return [resultData base64EncodedStringWithOptions:0];
+}
+
+/*
  CBC模式，返回NSData
  */
 - (NSData *)aesEncryptWithDataKey:(NSData *)key dataIv:(NSData *)iv {
-    return [self aesEncryptOrDencrypt:kCCEncrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key dataIv:iv mode:kPaddingMode];
+    return [self aesEncryptOrDecrypt:kCCEncrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key dataIv:iv mode:kPaddingMode];
 }
 
 /*
@@ -44,14 +58,64 @@
 }
 
 /*
+ ECB模式，返回base64编码
+ */
+- (NSString *)aesECBEncryptWithKey:(NSString *)key {
+    NSData *aesKey = [key dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *resultData = [self aesECBEncryptWithDataKey:aesKey];
+    return [resultData base64EncodedStringWithOptions:0];
+}
+
+/*
  ECB模式，返回NSData
  */
 - (NSData *)aesECBEncryptWithDataKey:(NSData *)key {
     NSData *aesIv = [@"00000000000000000000000000000000" dataFromHexString];
-    return [self aesEncryptOrDencrypt:kCCEncrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key dataIv:aesIv mode:kPaddingMode | kCCOptionECBMode];
+    return [self aesEncryptOrDecrypt:kCCEncrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key dataIv:aesIv mode:kPaddingMode | kCCOptionECBMode];
 }
 
-- (NSData *)aesEncryptOrDencrypt:(CCOperation)option data:(NSData *)data dataKey:(NSData *)key dataIv:(NSData *)iv mode:(int)mode{
+#pragma mark - 解密
+
+/*
+ 默认CBC模式解密，默认string为base64格式
+ */
+- (NSString *)aesBase64StringDecryptWithHexKey:(NSString *)key hexIv:(NSString *)iv {
+    NSData *aesKey = [key dataFromHexString];
+    if (iv == nil) {
+        // 32长度
+        iv = @"00000000000000000000000000000000";
+    }
+    NSData *aesIv = [iv dataFromHexString];
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:0];
+    NSData *resultData = [NSString aesDecryptWithData:data dataKey:aesKey dataIv:aesIv];
+    return [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
+}
+
+/*
+ CBC模式解密，返回NSData
+ */
++ (NSData *)aesDecryptWithData:(NSData *)data dataKey:(NSData *)key dataIv:(NSData *)iv {
+    return [[NSString alloc] aesEncryptOrDecrypt:kCCDecrypt data:data dataKey:key dataIv:iv mode:kPaddingMode];
+}
+
+/*
+ ECB模式解密，返回base64编码
+ */
+- (NSString *)aesECBDecryptWithHexKey:(NSString *)key {
+    NSData *aesKey = [key dataFromHexString];
+    NSData *resultData = [self aesECBEncryptWithDataKey:aesKey];
+    return [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];;
+}
+
+/*
+ ECB模式解密，返回NSData
+ */
+- (NSData *)aesECBDecryptWithDataKey:(NSData *)key {
+    NSData *aesIv = [@"00000000000000000000000000000000" dataFromHexString];
+    return [self aesEncryptOrDecrypt:kCCDecrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key dataIv:aesIv mode:kPaddingMode | kCCOptionECBMode];
+}
+
+- (NSData *)aesEncryptOrDecrypt:(CCOperation)option data:(NSData *)data dataKey:(NSData *)key dataIv:(NSData *)iv mode:(int)mode{
     // check length of key and iv
     if ([iv length] != 16) {
         @throw [NSException exceptionWithName:@"Encrypt"
@@ -95,9 +159,6 @@
     }
     return resultData;
 }
-
-#pragma mark - 解密
-
 
 /**
  hex形式的字符串转换为data
