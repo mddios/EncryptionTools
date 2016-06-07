@@ -11,7 +11,7 @@
 
 @implementation NSString (Encryption)
 
-#pragma mark - 加密
+#pragma mark - AES加密
 
 /*
  默认CBC模式，返回base64编码
@@ -74,7 +74,7 @@
     return [self aesEncryptOrDecrypt:kCCEncrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key dataIv:aesIv mode:kPaddingMode | kCCOptionECBMode];
 }
 
-#pragma mark - 解密
+#pragma mark - AES解密
 
 /*
  默认CBC模式解密，默认string为base64格式
@@ -115,6 +115,7 @@
     return [self aesEncryptOrDecrypt:kCCDecrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key dataIv:aesIv mode:kPaddingMode | kCCOptionECBMode];
 }
 
+
 - (NSData *)aesEncryptOrDecrypt:(CCOperation)option data:(NSData *)data dataKey:(NSData *)key dataIv:(NSData *)iv mode:(int)mode{
     // check length of key and iv
     if ([iv length] != 16) {
@@ -148,6 +149,63 @@
     NSData *resultData = nil;
     if (cryptStatus == kCCSuccess) {
         NSData *resultData = [NSData dataWithBytes:buffer length:encryptedSize];        
+        free(buffer);
+        return resultData;
+    } else {
+        free(buffer);
+        @throw [NSException exceptionWithName:@"Encrypt"
+                                       reason:@"Encrypt Error!"
+                                     userInfo:nil];
+        return resultData;
+    }
+    return resultData;
+}
+
+#pragma mark - DES加密
+
+/*
+ DES加密 key为NSString形式 结果返回base64编码
+ */
+- (NSString *)desEncryptWithKey:(NSString *)key {
+    NSData *desKey = [key dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *resultData = [self desEncryptWithDataKey:desKey];
+    return [resultData base64EncodedStringWithOptions:0];
+}
+
+/*
+ DES加密 key为NSData形式 结果返回NSData
+ */
+- (NSData *)desEncryptWithDataKey:(NSData *)key {
+    return [self desEncryptOrDecrypt:kCCEncrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key mode:kPaddingMode | kCCOptionECBMode];
+}
+
+- (NSData *)desEncryptOrDecrypt:(CCOperation)option data:(NSData *)data dataKey:(NSData *)key mode:(int)mode{
+//    if ([key length] != 16 && [key length] != 24 && [key length] != 32 ) {
+//        @throw [NSException exceptionWithName:@"Encrypt"
+//                                       reason:@"Length of key is wrong. Length of iv should be 16, 24 or 32(128, 192 or 256bits)"
+//                                     userInfo:nil];
+//    }
+    
+    // setup output buffer
+    size_t bufferSize = [data length] + kCCBlockSizeDES;
+    void *buffer = malloc(bufferSize);
+    
+    // do encrypt
+    size_t encryptedSize = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(option,
+                                          kCCAlgorithmDES,
+                                          mode,
+                                          [key bytes],     // Key
+                                          kCCKeySizeDES,    // kCCKeySizeAES
+                                          NULL,            // IV
+                                          [data bytes],
+                                          [data length],
+                                          buffer,
+                                          bufferSize,
+                                          &encryptedSize);
+    NSData *resultData = nil;
+    if (cryptStatus == kCCSuccess) {
+        NSData *resultData = [NSData dataWithBytes:buffer length:encryptedSize];
         free(buffer);
         return resultData;
     } else {

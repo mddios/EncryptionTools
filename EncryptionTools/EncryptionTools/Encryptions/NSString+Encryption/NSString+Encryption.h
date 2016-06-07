@@ -15,6 +15,8 @@
 
 @interface NSString (Encryption)
 
+#pragma mark - AES加密
+
 /**
  AES-CBC模式加密，默认模式
  @param key Hex形式，密钥支持128 192 256bit，16、24、32字节，转换为16进制字符串长度为32、48、64，长度错误将抛出异常
@@ -35,7 +37,7 @@
  AES-CBC模式加密，默认模式
  @param data 要加密的数据
  @param key 密钥支持128 192 256bit，16、24、32字节，长度错误将抛出异常
- @param iv 进制字符串形式；初始化向量iv为16字节。如果为nil，则初始化向量为0
+ @param iv 初始化向量iv为16字节。如果为nil，则初始化向量为0
  @return 加密结果为NSData形式
  */
 - (NSData *)aesEncryptWithDataKey:(NSData *)key dataIv:(NSData *)iv;
@@ -60,15 +62,34 @@
  */
 - (NSData *)aesECBEncryptWithDataKey:(NSData *)key;
 
-#pragma mark - 解密
+#pragma mark - AES解密
 
 /**
  AES-CBC模式解密，要求NSString为base64的结果
  @param key 密钥支持128 192 256bit，16、24、32字节，长度错误将抛出异常
+ @param iv 进制字符串形式；初始化向量iv为16字节。如果为nil，则初始化向量为0
  */
 - (NSString *)aesBase64StringDecryptWithHexKey:(NSString *)key hexIv:(NSString *)iv;
 
+/**
+ AES-CBC模式解密
+ @param key 密钥支持128 192 256bit，16、24、32字节，长度错误将抛出异常
+ @param iv 初始化向量iv为16字节。如果为nil，则初始化向量为0
+ */
 + (NSData *)aesDecryptWithData:(NSData *)data dataKey:(NSData *)key dataIv:(NSData *)iv;
+
+#pragma mark - DES加密
+
+/*
+ DES加密 key为NSString形式 结果返回base64编码
+ */
+- (NSString *)desEncryptWithKey:(NSString *)key;
+
+/*
+ DES加密 key为NSData形式 结果返回NSData
+ */
+- (NSData *)desEncryptWithDataKey:(NSData *)key;
+
 
 @end
 

@@ -23,8 +23,8 @@
 //    [self base64Test];
 //    [self hashTest];
 //    [self aesCBCTest];
-    [self aesECBTest];
-//    [self coohuaAES];
+//    [self aesECBTest];
+    [self desTest];
 }
 
 - (void)base64Test {
@@ -98,6 +98,19 @@
     NSString *aesBase64 = [plainText aesECBEncryptWithKey:key128];
     NSData *aesData = [plainText aesECBEncryptWithDataKey:[key128 dataUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"加密：%@ --- %@",aesBase64, aesData);
+}
+
+- (void)desTest {
+    NSString *plainText = @"123";
+    
+    NSString *key = @"01234567";
+    NSString *desBase64 = [plainText desEncryptWithKey:key];
+    NSData *keydata = [key dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *desData = [plainText desEncryptWithDataKey:keydata];
+    
+    NSLog(@"DES加密：%@ --- %@",desBase64,[desData base64EncodedStringWithOptions:0]);
+    
+    
 }
 
 @end
