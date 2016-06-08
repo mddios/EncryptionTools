@@ -179,6 +179,19 @@
     return [self desEncryptOrDecrypt:kCCEncrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key mode:kPaddingMode | kCCOptionECBMode];
 }
 
+#pragma mark - DES解密
+
+- (NSString *)desDecryptWithKey:(NSString *)key {
+    NSData *desKey = [key dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:0];
+    NSData *resultData = [NSString desDecryptWithData:data dataKey:desKey];
+    return [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
+}
+
++ (NSData *)desDecryptWithData:(NSData *)data dataKey:(NSData *)key {
+    return [[NSString alloc] desEncryptOrDecrypt:kCCDecrypt data:data dataKey:key mode:kPaddingMode | kCCOptionECBMode];
+}
+
 - (NSData *)desEncryptOrDecrypt:(CCOperation)option data:(NSData *)data dataKey:(NSData *)key mode:(int)mode{
 //    if ([key length] != 16 && [key length] != 24 && [key length] != 32 ) {
 //        @throw [NSException exceptionWithName:@"Encrypt"

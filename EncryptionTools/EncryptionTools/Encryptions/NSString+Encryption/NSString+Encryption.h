@@ -90,6 +90,17 @@
  */
 - (NSData *)desEncryptWithDataKey:(NSData *)key;
 
+#pragma mark - DES解密
+
+/*
+ DES解密，字符串必须为base64格式，key为字符串形式
+ */
+- (NSString *)desDecryptWithKey:(NSString *)key;
+
+/*
+ DES解密
+ */
++ (NSData *)desDecryptWithData:(NSData *)data dataKey:(NSData *)key;
 
 @end
 

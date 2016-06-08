@@ -110,7 +110,9 @@
     
     NSLog(@"DES加密：%@ --- %@",desBase64,[desData base64EncodedStringWithOptions:0]);
     
-    
+    NSString *decryptStr = [desBase64 desDecryptWithKey:key];
+    NSData *data = [NSString desDecryptWithData:desData dataKey:keydata];
+    NSLog(@"解密：%@  ---  %@",decryptStr,data);
 }
 
 @end
