@@ -18,6 +18,7 @@
 		60638A981CEEF71D0039DE1A /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 60638A971CEEF71D0039DE1A /* NSString+Hash.m */; };
 		6069CA651CF2D50A00FDC811 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6069CA641CF2D50A00FDC811 /* README.md */; };
 		6088B0E71D0020B600BF676A /* NSString+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 6088B0E61D0020B600BF676A /* NSString+Encryption.m */; };
+		6088B0EE1D0D5E2B00BF676A /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 6088B0ED1D0D5E2B00BF676A /* RSA.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,8 @@
 		6069CA641CF2D50A00FDC811 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		6088B0E51D0020B600BF676A /* NSString+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encryption.h"; sourceTree = "<group>"; };
 		6088B0E61D0020B600BF676A /* NSString+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encryption.m"; sourceTree = "<group>"; };
+		6088B0EC1D0D5E2B00BF676A /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSA.h; sourceTree = "<group>"; };
+		6088B0ED1D0D5E2B00BF676A /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSA.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,7 @@
 		60638A8C1CEDBB5C0039DE1A /* Encryptions */ = {
 			isa = PBXGroup;
 			children = (
+				6088B0E81D080E1000BF676A /* RSAEncrypt */,
 				60638A951CEEF71D0039DE1A /* Hash */,
 				6088B0E41D0020A700BF676A /* NSString+Encryption */,
 				60638A8D1CEDBB5C0039DE1A /* Base64.h */,
@@ -124,6 +128,15 @@
 				6088B0E61D0020B600BF676A /* NSString+Encryption.m */,
 			);
 			path = "NSString+Encryption";
+			sourceTree = "<group>";
+		};
+		6088B0E81D080E1000BF676A /* RSAEncrypt */ = {
+			isa = PBXGroup;
+			children = (
+				6088B0EC1D0D5E2B00BF676A /* RSA.h */,
+				6088B0ED1D0D5E2B00BF676A /* RSA.m */,
+			);
+			path = RSAEncrypt;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +215,7 @@
 				6069CA651CF2D50A00FDC811 /* README.md in Sources */,
 				60638A921CEDBB5C0039DE1A /* CocoaSecurity.m in Sources */,
 				60638A731CEB154C0039DE1A /* AppDelegate.m in Sources */,
+				6088B0EE1D0D5E2B00BF676A /* RSA.m in Sources */,
 				6088B0E71D0020B600BF676A /* NSString+Encryption.m in Sources */,
 				60638A701CEB154C0039DE1A /* main.m in Sources */,
 			);

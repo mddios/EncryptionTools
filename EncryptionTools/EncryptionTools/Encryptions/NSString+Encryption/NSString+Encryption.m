@@ -2,7 +2,7 @@
 //  NSString+Encryption.m
 //  EncryptionTools
 //
-//  Created by mdd on 16/6/2.
+//  Created by mdd on 16/4/2.
 //  Copyright © 2016年 com.personal. All rights reserved.
 //
 

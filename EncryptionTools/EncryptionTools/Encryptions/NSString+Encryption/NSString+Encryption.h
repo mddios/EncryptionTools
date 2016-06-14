@@ -2,7 +2,7 @@
 //  NSString+Encryption.h
 //  EncryptionTools
 //
-//  Created by mdd on 16/6/2.
+//  Created by mdd on 16/4/2.
 //  Copyright © 2016年 com.personal. All rights reserved.
 //
 
@@ -78,6 +78,16 @@
  */
 + (NSData *)aesDecryptWithData:(NSData *)data dataKey:(NSData *)key dataIv:(NSData *)iv;
 
+/*
+ ECB模式解密，返回base64编码
+ */
+- (NSString *)aesECBDecryptWithHexKey:(NSString *)key;
+
+/*
+ ECB模式解密，返回NSData
+ */
+- (NSData *)aesECBDecryptWithDataKey:(NSData *)key;
+
 #pragma mark - DES加密
 
 /*
@@ -101,6 +111,8 @@
  DES解密
  */
 + (NSData *)desDecryptWithData:(NSData *)data dataKey:(NSData *)key;
+
+
 
 @end
 

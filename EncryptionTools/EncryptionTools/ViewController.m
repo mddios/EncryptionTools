@@ -9,8 +9,8 @@
 #import "ViewController.h"
 #import "NSString+Hash.h"
 #import "CocoaSecurity.h"
-
 #import "NSString+Encryption.h"
+#import "RSA.h"
 
 @interface ViewController ()
 @property (nonatomic, strong) NSData *data;
@@ -20,11 +20,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self base64Test];
-//    [self hashTest];
-//    [self aesCBCTest];
-//    [self aesECBTest];
+    [self base64Test];
+    
+    [self hashTest];
+    
+    [self aesCBCTest];
+    [self aesECBTest];
     [self desTest];
+    
+    [self rsaTest];
 }
 
 - (void)base64Test {
@@ -108,11 +112,47 @@
     NSData *keydata = [key dataUsingEncoding:NSUTF8StringEncoding];
     NSData *desData = [plainText desEncryptWithDataKey:keydata];
     
-    NSLog(@"DES加密：%@ --- %@",desBase64,[desData base64EncodedStringWithOptions:0]);
+    NSLog(@"DES加密：%@ --- %@",desBase64,desData);
     
     NSString *decryptStr = [desBase64 desDecryptWithKey:key];
     NSData *data = [NSString desDecryptWithData:desData dataKey:keydata];
     NSLog(@"解密：%@  ---  %@",decryptStr,data);
+}
+
+- (void)rsaTest {
+    NSString *plainText = @"123";
+    NSString *privateKey = @"\
+    -----BEGIN PRIVATE KEY-----\
+    MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAM7GhkiwVsUx5HQ5\
+    adz+wXkDcaPQFaygKVBbcEqC8xDzlldUIzruDpci2XmxJbYTIxoh5Dy1GwzQcjig\
+    K+U4yNJWB3JmaptR9pkOgNg9bakNsuowOv+jV4rFimyxsDIfpkPIl5M4S73IXtdS\
+    wiKWiTNzQP2L649zzKn+8thM8MkRAgMBAAECgYAVQx69zLwvbND0Do9PNTcJzYva\
+    72O7K4D0DWL/lnWOEa4s7q7suVvwuJmqRMf+7/rVDhUdFPZiG/ES142L9YnYv7XB\
+    NlhZsT80gcGWzh1MO3hqIwZQbbLq4FwU+YH3uyNPeh9w4dVm4VzzSS3KFW6/Hmiw\
+    HyhtkduOf7eGf+kgXQJBAPHVuiWW7ddcvTxgmtLWakHcX/zsddzENrR1ZSioFFQI\
+    +OoL7xK7Fp108rpEW+RvVTJYk3NDkxvc5m3rn+yKl0MCQQDa4xZ/S6RNGHGIRiFk\
+    gkNJoRFh5pYVT6ZzqYLb/9Ny/LuGV0F7XmftRA0paXsNsjdns2a4o9r6tarABKq0\
+    EAcbAkA5q/uJbVXpDx+931fswd9zN2fYvFdbP5vAK2LlcDfw1nbt8cygzecVw8cC\
+    7rxvXLGXoRIA4fOaKHL3ccKguWhbAkBGh1ePatMlGFQ0wcwus5500hZkwkTn1wNe\
+    T2df9f2vFmpiLilmVBQOqpfHGTrSPfOGUZMuuXVsxS6gsqBCZsuzAkAh+/VXDXxh\
+    wR7FY8GSfmIq5+7QWjv5nvvqUMtg/WQ3JBl6iGh8ABZg1C8dnhZOmIjGLYVn3EhG\
+    74zuyawizSHa\
+    -----END PRIVATE KEY-----\
+    ";
+    
+    NSString *publicKey = @"\
+    -----BEGIN PUBLIC KEY-----\
+    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDOxoZIsFbFMeR0OWnc/sF5A3Gj\
+    0BWsoClQW3BKgvMQ85ZXVCM67g6XItl5sSW2EyMaIeQ8tRsM0HI4oCvlOMjSVgdy\
+    ZmqbUfaZDoDYPW2pDbLqMDr/o1eKxYpssbAyH6ZDyJeTOEu9yF7XUsIilokzc0D9\
+    i+uPc8yp/vLYTPDJEQIDAQAB\
+    -----END PUBLIC KEY-----\
+    ";
+    
+    NSString *encWithPubKey = [RSA encryptString:plainText publicKey:publicKey];
+    NSString *decWithPrivKey = [RSA decryptString:encWithPubKey privateKey:privateKey];
+    
+    NSLog(@"RSA:%@ --- %@",encWithPubKey,decWithPrivKey);
 }
 
 @end
