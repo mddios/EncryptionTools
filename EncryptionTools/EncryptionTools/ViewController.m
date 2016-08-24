@@ -20,15 +20,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self base64Test];
+//    [self base64Test];
+//    
+//    [self hashTest];
     
-    [self hashTest];
-    
-    [self aesCBCTest];
+//    [self aesCBCTest];
     [self aesECBTest];
-    [self desTest];
-    
-    [self rsaTest];
+//    [self desTest];
+//    
+//    [self rsaTest];
+//    [self blockTest];
 }
 
 - (void)base64Test {
@@ -70,6 +71,20 @@
     NSLog(@"hmacmd5:%lu---%@---%@",[plainStr hmacMD5WithKey:plainStr].length,[plainStr hmacMD5WithKey:plainStr],hmacmd5.hex);
 }
 
+- (void)blockTest {
+    NSString *str = @"123";
+    
+    CocoaSecurityResult *md5 = [CocoaSecurity md5:str];
+    CocoaSecurityResult *result1 = [CocoaSecurity md5WithData:md5.data];
+    CocoaSecurityResult *result2 = [CocoaSecurity md5:md5.hexLower];
+    
+    NSLog(@"%@ --  %@",[md5.hexLower dataUsingEncoding:NSUTF8StringEncoding],md5.data);
+    NSLog(@"%@", result1.hexLower);
+    NSLog(@"%@", result2.hexLower);
+    
+    
+}
+
 - (void)aesCBCTest {
     NSString *plainText = @"123";
     
@@ -98,10 +113,16 @@
     NSString *plainText = @"123";
     
     NSString *key128 = @"0123456789ABCDEF";
+    NSString *key128Hex = @"30313233343536373839414243444546";
     
     NSString *aesBase64 = [plainText aesECBEncryptWithKey:key128];
     NSData *aesData = [plainText aesECBEncryptWithDataKey:[key128 dataUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"加密：%@ --- %@",aesBase64, aesData);
+    
+    // 解密
+    NSString *decStr = [aesBase64 aesECBBase64StringDecryptWithHexKey:key128Hex];
+    NSData *decData = [NSString aesECBDecryptWithData:aesData withDataKey:[key128 dataUsingEncoding:NSUTF8StringEncoding]];
+    NSLog(@"解密：%@---%@",decStr, decData);
 }
 
 - (void)desTest {

@@ -10,7 +10,7 @@
 
 @interface NSString (Hash)
 
-/// 返回结果：32长度   终端命令：md5 -s "123"
+/// 返回结果：32长度(128位，16字节，16进制字符输出则为32字节长度)   终端命令：md5 -s "123"
 - (NSString *)md5Hash;
 
 /// 返回结果：40长度   终端命令：echo -n "123" | openssl sha -sha1

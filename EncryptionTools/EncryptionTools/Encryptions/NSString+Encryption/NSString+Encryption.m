@@ -99,21 +99,40 @@
 }
 
 /*
- ECB模式解密，返回base64编码
+ ECB模式解密，要求输入为Base64格式，返回为NSString
  */
-- (NSString *)aesECBDecryptWithHexKey:(NSString *)key {
+
+- (NSString *)aesECBBase64StringDecryptWithHexKey:(NSString *)key {
     NSData *aesKey = [key dataFromHexString];
-    NSData *resultData = [self aesECBEncryptWithDataKey:aesKey];
-    return [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];;
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:0];
+    NSData *resultData = [NSString aesECBDecryptWithData:data withDataKey:aesKey];
+    return [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
 }
 
 /*
- ECB模式解密，返回NSData
+ ECB模式解密，返回为NSData
  */
-- (NSData *)aesECBDecryptWithDataKey:(NSData *)key {
++ (NSData *)aesECBDecryptWithData:(NSData *)data withDataKey:(NSData *)key{
     NSData *aesIv = [@"00000000000000000000000000000000" dataFromHexString];
-    return [self aesEncryptOrDecrypt:kCCDecrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key dataIv:aesIv mode:kPaddingMode | kCCOptionECBMode];
+    return [[NSString alloc] aesEncryptOrDecrypt:kCCDecrypt data:data dataKey:key dataIv:aesIv mode:kPaddingMode | kCCOptionECBMode];
 }
+
+///*
+// ECB模式解密，返回base64编码
+// */
+//- (NSString *)aesECBDecryptWithHexKey:(NSString *)key {
+//    NSData *aesKey = [key dataFromHexString];
+//    NSData *resultData = [self aesECBEncryptWithDataKey:aesKey];
+//    return [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];;
+//}
+//
+///*
+// ECB模式解密，返回NSData
+// */
+//- (NSData *)aesECBDecryptWithDataKey:(NSData *)key {
+//    NSData *aesIv = [@"00000000000000000000000000000000" dataFromHexString];
+//    return [self aesEncryptOrDecrypt:kCCDecrypt data:[self dataUsingEncoding:NSUTF8StringEncoding] dataKey:key dataIv:aesIv mode:kPaddingMode | kCCOptionECBMode];
+//}
 
 
 - (NSData *)aesEncryptOrDecrypt:(CCOperation)option data:(NSData *)data dataKey:(NSData *)key dataIv:(NSData *)iv mode:(int)mode{

@@ -79,14 +79,25 @@
 + (NSData *)aesDecryptWithData:(NSData *)data dataKey:(NSData *)key dataIv:(NSData *)iv;
 
 /*
- ECB模式解密，返回base64编码
+ ECB模式解密，要求输入为Base64格式的nsstring，返回为NSString
  */
-- (NSString *)aesECBDecryptWithHexKey:(NSString *)key;
+- (NSString *)aesECBBase64StringDecryptWithHexKey:(NSString *)key;
 
 /*
- ECB模式解密，返回NSData
+ ECB模式解密，返回为NSData
  */
-- (NSData *)aesECBDecryptWithDataKey:(NSData *)key;
++ (NSData *)aesECBDecryptWithData:(NSData *)data withDataKey:(NSData *)key;
+
+
+///*
+// ECB模式解密，返回base64编码
+// */
+//- (NSString *)aesECBDecryptWithHexKey:(NSString *)key;
+//
+///*
+// ECB模式解密，返回NSData
+// */
+//- (NSData *)aesECBDecryptWithDataKey:(NSData *)key;
 
 #pragma mark - DES加密
 
