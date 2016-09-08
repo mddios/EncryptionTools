@@ -67,6 +67,15 @@
 }
 
 /*
+ ECB模式，返回base64
+ */
+- (NSString *)aesECBEncryptWithBase64Key:(NSString *)key {
+    NSData *aesKey = [[NSData alloc] initWithBase64EncodedString:key options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSData *resultData = [self aesECBEncryptWithDataKey:aesKey];
+    return [resultData base64EncodedStringWithOptions:0];
+}
+
+/*
  ECB模式，返回NSData
  */
 - (NSData *)aesECBEncryptWithDataKey:(NSData *)key {
@@ -104,6 +113,16 @@
 
 - (NSString *)aesECBBase64StringDecryptWithHexKey:(NSString *)key {
     NSData *aesKey = [key dataFromHexString];
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:0];
+    NSData *resultData = [NSString aesECBDecryptWithData:data withDataKey:aesKey];
+    return [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
+}
+
+/*
+ ECB模式解密，要求输入为Base64格式，返回为NSString
+ */
+- (NSString *)aesECBBase64StringDecryptWithBase64Key:(NSString *)key {
+    NSData *aesKey = [[NSData alloc] initWithBase64EncodedString:key options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:0];
     NSData *resultData = [NSString aesECBDecryptWithData:data withDataKey:aesKey];
     return [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];

@@ -51,6 +51,13 @@
 
 /**
  AES-ECB模式加密
+ @param key base64形式，密钥支持128 192 256bit，16、24、32字节，转换为16进制字符串长度为32、48、64，长度错误将抛出异常
+ @return 加密结果为base64编码
+ */
+- (NSString *)aesECBEncryptWithBase64Key:(NSString *)key;
+
+/**
+ AES-ECB模式加密
  @param key 字符串形式，密钥支持128 192 256bit，16、24、32字节，长度错误将抛出异常
  @return 加密结果为base64编码
  */
@@ -82,6 +89,11 @@
  ECB模式解密，要求输入为Base64格式的nsstring，返回为NSString
  */
 - (NSString *)aesECBBase64StringDecryptWithHexKey:(NSString *)key;
+
+/*
+ ECB模式解密，要求输入为Base64格式，返回为NSString
+ */
+- (NSString *)aesECBBase64StringDecryptWithBase64Key:(NSString *)key;
 
 /*
  ECB模式解密，返回为NSData

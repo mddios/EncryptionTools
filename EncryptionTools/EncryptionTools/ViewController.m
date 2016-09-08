@@ -25,9 +25,9 @@
 //    [self hashTest];
     
 //    [self aesCBCTest];
-    [self aesECBTest];
-//    [self desTest];
-//    
+//    [self aesECBTest];
+    [self desTest];
+//
 //    [self rsaTest];
 //    [self blockTest];
 }
