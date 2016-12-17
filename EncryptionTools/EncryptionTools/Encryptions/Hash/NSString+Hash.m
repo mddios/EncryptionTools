@@ -101,7 +101,7 @@
     
     unsigned char *digest;
     digest = malloc(CC_SHA1_DIGEST_LENGTH);
-    const char *cKey = [self cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];
     CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), [hashData bytes], [hashData length], digest);
 
     NSString *encode = [self stringFromBytes:digest length:CC_SHA1_DIGEST_LENGTH];
@@ -115,7 +115,7 @@
     
     unsigned char *digest;
     digest = malloc(CC_SHA224_DIGEST_LENGTH);
-    const char *cKey = [self cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];
     CCHmac(kCCHmacAlgSHA224, cKey, strlen(cKey), [hashData bytes], [hashData length], digest);
     
     NSString *encode = [self stringFromBytes:digest length:CC_SHA224_DIGEST_LENGTH];
@@ -129,7 +129,7 @@
     
     unsigned char *digest;
     digest = malloc(CC_SHA256_DIGEST_LENGTH);
-    const char *cKey = [self cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];
     CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), [hashData bytes], [hashData length], digest);
     
     NSString *encode = [self stringFromBytes:digest length:CC_SHA256_DIGEST_LENGTH];
@@ -143,7 +143,7 @@
     
     unsigned char *digest;
     digest = malloc(CC_SHA384_DIGEST_LENGTH);
-    const char *cKey = [self cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];
     CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), [hashData bytes], [hashData length], digest);
     
     NSString *encode = [self stringFromBytes:digest length:CC_SHA384_DIGEST_LENGTH];
@@ -157,7 +157,7 @@
     
     unsigned char *digest;
     digest = malloc(CC_SHA512_DIGEST_LENGTH);
-    const char *cKey = [self cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];
     CCHmac(kCCHmacAlgSHA512, cKey, strlen(cKey), [hashData bytes], [hashData length], digest);
     
     NSString *encode = [self stringFromBytes:digest length:CC_SHA512_DIGEST_LENGTH];

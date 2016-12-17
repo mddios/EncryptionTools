@@ -22,11 +22,11 @@
     [super viewDidLoad];
 //    [self base64Test];
 //    
-//    [self hashTest];
+    [self hashTest];
     
 //    [self aesCBCTest];
 //    [self aesECBTest];
-    [self desTest];
+//    [self desTest];
 //
 //    [self rsaTest];
 //    [self blockTest];
@@ -47,6 +47,7 @@
 
 - (void)hashTest {
     NSString *plainStr = @"123";
+    NSString *key = @"456";
     // md5
     CocoaSecurityResult *md5 = [CocoaSecurity md5:plainStr];
     NSLog(@"md5:%lu---%@---%@",plainStr.md5Hash.length, plainStr.md5Hash,md5.hex);
@@ -67,8 +68,11 @@
     NSLog(@"sha512:%lu---%@---%@",plainStr.sha512Hash.length,plainStr.sha512Hash,sha512.hex);
     
     /// hmac
-    CocoaSecurityResult *hmacmd5 = [CocoaSecurity hmacMd5:plainStr hmacKey:plainStr];
-    NSLog(@"hmacmd5:%lu---%@---%@",[plainStr hmacMD5WithKey:plainStr].length,[plainStr hmacMD5WithKey:plainStr],hmacmd5.hex);
+    CocoaSecurityResult *hmacmd5 = [CocoaSecurity hmacMd5:plainStr hmacKey:key];
+    NSLog(@"hmacmd5:%lu---%@---%@",[plainStr hmacMD5WithKey:plainStr].length,[plainStr hmacMD5WithKey:key],hmacmd5.hex);
+    
+    CocoaSecurityResult *hmacSHA1 = [CocoaSecurity hmacSha1:plainStr hmacKey:key];
+    NSLog(@"hmacmd5:%lu---%@---%@",[plainStr hmacSHA1WithKey:key].length,[plainStr hmacSHA1WithKey:key],hmacSHA1.hex);
 }
 
 - (void)blockTest {
