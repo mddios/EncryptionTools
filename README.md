@@ -6,7 +6,11 @@
 `NSString+Encryption.m`与`NSString+Encryption.h`文件实现了AES DES RSA加密解密，也可以单独拷贝出来使用
 
 ##更新NSString+Hash
-hmacSHA有笔误，错把'const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];'写为'const char *cKey = [self cStringUsingEncoding:NSUTF8StringEncoding];'，感谢简书@靓模袭地球
+hmacSHA有笔误，错把 `const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];`写为`const char *cKey = [self cStringUsingEncoding:NSUTF8StringEncoding];`，感谢简书 @靓模袭地球
+
+---
+
+---
 
 ##一、Base64编码
 Base64编码要求把3个8位字节`（3*8=24）`转化为4个6位的字节`（4*6=24）`，之后在6位的前面补两个0，形成8位一个字节的形式，这样每一个字节的有效位为6位，则取值范围0~63`0 ~ (2^6 - 1)`。如果最后剩下的字符不到3个字节，则用0填充，输出字符使用'='，因此我们看到Base64末尾会有1到2个'='。另外标准还要求每76个字符要插入换行(不过，这个视具体情况定)。
