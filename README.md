@@ -58,10 +58,10 @@ NSData *base64Data = [plainData base64EncodedDataWithOptions:0];
 
 前两个选项为是否允许插入字符，以及多少个字符长度插入，两个可以选其一或者都不选。后两个选项代表要插入的具体字符。比如我们想76个字符后插入一个\r则可以`NSDataBase64Encoding76CharacterLineLength | NSDataBase64EncodingEndLineWithCarriageReturn`。而在上面举的例子中选项为0，则代表不插入字符。
 
-####第三方框架
+#### 第三方框架
 在iOS7之前我们一般用的都是第三方框架，比如nicklockwood写的[https://github.com/nicklockwood/Base64](https://github.com/nicklockwood/Base64)还有Google的GTMBase64，虽然苹果有了自己的实现，但是许多其它的加密框架都用到了它，所以还是要了解一下，另外它还提供任意长度字符插入`\r\n`，而苹果只能是64或76长度。
 
-##二、MD5、SHA1、SHA256、SHA512、HMAC实现
+## 二、MD5、SHA1、SHA256、SHA512、HMAC实现
 主要用于验证，防止信息被修改。介绍请参照[http://www.jianshu.com/p/003b85fd3e36](http://www.jianshu.com/p/003b85fd3e36)。
 
 具体的实现参考第三方框架：[https://github.com/kelp404/CocoaSecurity](https://github.com/kelp404/CocoaSecurity)。非常全面，不过不是太方便，比如想要获得MD5结果
