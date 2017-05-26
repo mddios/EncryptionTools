@@ -110,7 +110,6 @@
 /*
  ECB模式解密，要求输入为Base64格式，返回为NSString
  */
-
 - (NSString *)aesECBBase64StringDecryptWithHexKey:(NSString *)key {
     NSData *aesKey = [key dataFromHexString];
     NSData *data = [[NSData alloc] initWithBase64EncodedString:self options:0];

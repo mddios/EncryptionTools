@@ -5,20 +5,20 @@
 
 `NSString+Encryption.m`与`NSString+Encryption.h`文件实现了AES DES RSA加密解密，也可以单独拷贝出来使用
 
-##更新NSString+Hash
+## 更新NSString+Hash
 hmacSHA有笔误，错把 `const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];`写为`const char *cKey = [self cStringUsingEncoding:NSUTF8StringEncoding];`，感谢简书 @靓模袭地球
 
 ---
 
 ---
 
-##一、Base64编码
+## 一、Base64编码
 Base64编码要求把3个8位字节`（3*8=24）`转化为4个6位的字节`（4*6=24）`，之后在6位的前面补两个0，形成8位一个字节的形式，这样每一个字节的有效位为6位，则取值范围0~63`0 ~ (2^6 - 1)`。如果最后剩下的字符不到3个字节，则用0填充，输出字符使用'='，因此我们看到Base64末尾会有1到2个'='。另外标准还要求每76个字符要插入换行(不过，这个视具体情况定)。
 
 iOS7之后苹果有自己的Base64编码解码API，NSData的扩展：`NSData (NSDataBase64Encoding)`
 
 
-####两种存储方式
+#### 两种存储方式
 * 可见字符串形式
 
 为了保证所输出的每一个编码字节都是可读字符，而不是0~63这些数字，Base64制作了一个码表，就像ASCII码表一样，每一个Base64码值都有对应的字符。64个可读字符从0到63非别是`A-Z、a-z、0-9、+、/`，这也是Base64名字的由来。
@@ -28,7 +28,7 @@ iOS7之后苹果有自己的Base64编码解码API，NSData的扩展：`NSData (N
 即NSData形式保存，Base64编码结果为字符，而这些字符又对应ASCII码表的码值，NSData就是存储ASCII码表的码值。
 
 
-####下面举个例子，并以苹果提供的API来详细介绍Base64编码解码过程：
+#### 下面举个例子，并以苹果提供的API来详细介绍Base64编码解码过程：
 
 假设我们对字符串"123"进行Base64编码，"123"对应的16进制是313233，二进制为`00110001、00110010、00110011`，将其变为4*6结果即下表中的第一行。然后根据Base64的码表，它们分别对应表中的第二行。那么"123"编码的最终结果即为MTIz，以字符串的形式保存。然后根据MTIz对应ASCII码值，以NSData形式存储，如表中的第三行。
 

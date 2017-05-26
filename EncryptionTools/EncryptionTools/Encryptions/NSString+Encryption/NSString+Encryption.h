@@ -135,8 +135,6 @@
  */
 + (NSData *)desDecryptWithData:(NSData *)data dataKey:(NSData *)key;
 
-
-
 @end
 
 

@@ -167,7 +167,9 @@
 }
 
 #pragma mark - Bytes转字符串
-/// 字符大小写可以通过修改“%02X”中的x修改,下面采用的是大写
+/**
+ 字符大小写可以通过修改“%02X”中的x修改,下面采用的是大写
+ */
 - (NSString *)stringFromBytes:(uint8_t *)bytes length:(int)length {
     NSMutableString *strM = [NSMutableString string];
     

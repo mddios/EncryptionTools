@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self base64Test];
-//    
+    
     [self hashTest];
     
 //    [self aesCBCTest];
@@ -85,8 +85,6 @@
     NSLog(@"%@ --  %@",[md5.hexLower dataUsingEncoding:NSUTF8StringEncoding],md5.data);
     NSLog(@"%@", result1.hexLower);
     NSLog(@"%@", result2.hexLower);
-    
-    
 }
 
 - (void)aesCBCTest {
