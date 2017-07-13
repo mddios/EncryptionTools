@@ -16,7 +16,7 @@
 - (NSString *)md5Hash {
     const char *plain = self.UTF8String;
     unsigned char *digest;
-    digest = malloc(CC_SHA1_DIGEST_LENGTH);
+    digest = malloc(CC_MD5_DIGEST_LENGTH);
     
     CC_MD5(plain, (CC_LONG)strlen(plain), digest);
     
